@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FanGB"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <TextBlock
-            Text="Hello, World!" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
+        Title="FanGB" Height="450" Width="800">
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Button ToolTip="Click to see something exciting">Click</Button>
     </Grid>
 </Window>
