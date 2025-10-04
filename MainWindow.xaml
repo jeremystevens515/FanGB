@@ -6,7 +6,23 @@
         xmlns:local="clr-namespace:FanGB"
         mc:Ignorable="d"
         Title="FanGB" Height="450" Width="800">
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Button ToolTip="Click to see something exciting">Click</Button>
-    </Grid>
+    <DockPanel>
+        <TabControl TabStripPlacement="Top">
+            <TabItem Header="Monitor">
+                <TabItem.Content>
+                    Display system information like temperature and current fan speeds
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Header="Fans">
+                <TabItem.Content>
+                    Set fan controls here.
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Header="Lighting">
+                <TabItem.Content>
+                    Set system lighting here
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
 </Window>
