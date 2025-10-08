@@ -8,21 +8,37 @@
         Title="FanGB" Height="450" Width="800">
     <DockPanel>
         <TabControl TabStripPlacement="Top">
+            
             <TabItem Header="Monitor">
-                <TabItem.Content>
-                    Display system information like temperature and current fan speeds
-                </TabItem.Content>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0">Hardware01</TextBlock>
+                    <TextBlock Grid.Column="1">Hardware02</TextBlock>
+                </Grid>
             </TabItem>
+            
             <TabItem Header="Fans">
-                <TabItem.Content>
-                    Set fan controls here.
-                </TabItem.Content>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0">Controls</TextBlock>
+                    <TextBlock Grid.Column="1">Curves</TextBlock>
+                    <TextBlock Grid.Column="2">Speeds</TextBlock>
+                </Grid>
             </TabItem>
+            
             <TabItem Header="Lighting">
                 <TabItem.Content>
                     Set system lighting here
                 </TabItem.Content>
             </TabItem>
+            
         </TabControl>
     </DockPanel>
 </Window>
