@@ -1,14 +1,9 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using LibreHardwareMonitor;
+using LibreHardwareMonitor.Hardware;
 
 namespace FanGB
 {
@@ -17,9 +12,57 @@ namespace FanGB
     /// </summary>
     public partial class MainWindow : Window
     {
+        public class User : INotifyPropertyChanged
+        {
+            private string name;
+            public string Name
+            {
+                get { return this.name; }
+                set
+                {
+                    if (this.name != value)
+                    {
+                        this.name = value;
+                        this.NotifyPropertyChanged("Name");
+                    }
+                }
+            }
+            public event PropertyChangedEventHandler PropertyChanged;
+            public void NotifyPropertyChanged(string PropertyName)
+            {
+                if(this.PropertyChanged != null)
+                    this.PropertyChanged(this, new PropertyChangedEventArgs(PropertyName));
+            }
+        }
+
+        private ObservableCollection<User> users = new ObservableCollection<User>();
+
         public MainWindow()
         {
             InitializeComponent();
+
+            Computer computer = new Computer()
+            {
+                IsCpuEnabled = false,
+                IsGpuEnabled = false,
+                IsMemoryEnabled = false,
+                IsMotherboardEnabled = true,
+                IsControllerEnabled = false,
+                IsNetworkEnabled = false,
+                IsStorageEnabled = false
+            };
+
+            computer.Open();
+            computer.Accept(new UpdateVisitor());
+
+            List<string> items = new List<string>();
+            foreach (IHardware hardware in computer.Hardware)
+            {
+                items.Add(hardware.Name);
+            }
+            HardwareList.ItemsSource = items;
+
+            computer.Close();
         }
     }
 }

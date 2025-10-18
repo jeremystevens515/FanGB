@@ -10,14 +10,7 @@
         <TabControl TabStripPlacement="Top">
             
             <TabItem Header="Monitor">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0">Hardware01</TextBlock>
-                    <TextBlock Grid.Column="1">Hardware02</TextBlock>
-                </Grid>
+                <ListView Name="HardwareList"></ListView>
             </TabItem>
             
             <TabItem Header="Fans">
@@ -26,17 +19,17 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0">Controls</TextBlock>
                     <TextBlock Grid.Column="1">Curves</TextBlock>
                     <TextBlock Grid.Column="2">Speeds</TextBlock>
+                    <TextBlock Grid.Column="3">Sensors</TextBlock>
                 </Grid>
             </TabItem>
-            
+
             <TabItem Header="Lighting">
-                <TabItem.Content>
-                    Set system lighting here
-                </TabItem.Content>
+                <TabItem.Content>content here</TabItem.Content>
             </TabItem>
             
         </TabControl>
