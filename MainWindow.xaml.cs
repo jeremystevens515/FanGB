@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using LibreHardwareMonitor;
 using LibreHardwareMonitor.Hardware;
 
@@ -12,31 +13,22 @@ namespace FanGB
     /// </summary>
     public partial class MainWindow : Window
     {
-        public class User : INotifyPropertyChanged
-        {
-            private string name;
-            public string Name
+        public class KeyValuePair
+        { 
+            public KeyValuePair(string key, string value)
             {
-                get { return this.name; }
-                set
-                {
-                    if (this.name != value)
-                    {
-                        this.name = value;
-                        this.NotifyPropertyChanged("Name");
-                    }
-                }
+                Key = key;
+                Value = value;
             }
-            public event PropertyChangedEventHandler PropertyChanged;
-            public void NotifyPropertyChanged(string PropertyName)
-            {
-                if(this.PropertyChanged != null)
-                    this.PropertyChanged(this, new PropertyChangedEventArgs(PropertyName));
-            }
+
+            public string Key { get; set; }
+
+            public string Value {  get; set; }
+
+            
         }
 
-        private ObservableCollection<User> users = new ObservableCollection<User>();
-
+        private ObservableCollection<KeyValuePair> MonitorData = new ObservableCollection<KeyValuePair>();
         public MainWindow()
         {
             InitializeComponent();
@@ -55,13 +47,21 @@ namespace FanGB
             computer.Open();
             computer.Accept(new UpdateVisitor());
 
-            List<string> items = new List<string>();
             foreach (IHardware hardware in computer.Hardware)
             {
-                items.Add(hardware.Name);
+                foreach (IHardware subhardware in hardware.SubHardware)
+                {
+                    foreach (ISensor sensor in subhardware.Sensors)
+                    {
+                        //MonitorData.Add(new KeyValuePair(sensor.Name, sensor.Value.ToString()));
+                        string ItemContent = sensor.Name + " : " + sensor.Value.ToString();
+                        ListViewItem item = new ListViewItem();
+                        item.Content = ItemContent;
+                        HardwareList.Items.Add(item);
+                    }
+                }
             }
-            HardwareList.ItemsSource = items;
-
+            
             computer.Close();
         }
     }
