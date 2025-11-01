@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Data;
+using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace FanGB
@@ -9,6 +10,7 @@ namespace FanGB
     /// </summary>
     public partial class App : Application
     {
+        
     }
 
 }
