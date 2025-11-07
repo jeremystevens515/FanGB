@@ -8,9 +8,9 @@
         Title="FanGB" Height="450" Width="800">
     <DockPanel>
         <TabControl TabStripPlacement="Top">
-            
+
             <TabItem Header="Monitor">
-                <ListView Name="HardwareList"></ListView>
+                <Grid Name="HardwareList"></Grid>
             </TabItem>
             
             <TabItem Header="Fans">

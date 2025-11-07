@@ -40,8 +40,8 @@ namespace FanGB
 
             Computer computer = new Computer()
             {
-                IsCpuEnabled = false,
-                IsGpuEnabled = false,
+                IsCpuEnabled = true,
+                IsGpuEnabled = true,
                 IsMemoryEnabled = false,
                 IsMotherboardEnabled = true,
                 IsControllerEnabled = false,
@@ -52,44 +52,51 @@ namespace FanGB
             computer.Open();
             computer.Accept(new UpdateVisitor());
 
-            /*
             foreach (IHardware hardware in computer.Hardware)
             {
-                HardwareList.Items.Add(hardware.Name);
+                string hardwareName = hardware.Name;
+                Grid hardwareGrid = new Grid();
+                hardwareGrid.ShowGridLines = true;
+                //hardwareGrid.Name = hardwareName;
+                HardwareList.ColumnDefinitions.Add(new ColumnDefinition());
+
+                HardwareList.Children.Add(hardwareGrid);
 
                 foreach (IHardware subhardware in hardware.SubHardware)
                 {
-                    HardwareList.Items.Add(subhardware.Name);
+                    string subhardwareName = subhardware.Name;
+                    Grid subhardwareGrid = new Grid();
+                    subhardwareGrid.ShowGridLines = true;
+                    //subhardwareGrid.Name = subhardwareName;
+                    subhardwareGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                    subhardwareGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
+                    hardwareGrid.Children.Add(subhardwareGrid);
+
+                    StackPanel sensorNamesPanel = new StackPanel();
+                    StackPanel sensorValuesPanel = new StackPanel();
+
+                    subhardwareGrid.Children.Add(sensorNamesPanel);
+                    subhardwareGrid.Children.Add(sensorValuesPanel);
 
                     foreach (ISensor sensor in subhardware.Sensors)
                     {
+
                         if (sensor.SensorType == SensorType.Fan || sensor.SensorType == SensorType.Control)
                         {
-                            HardwareList.Items.Add($"{sensor.Name}({sensor.SensorType}) : {sensor.Value.ToString()}");
+                            string sensorName = sensor.Name;
+                            string sensorValue = sensor.Value.ToString();
+
+                            Grid.SetColumn(sensorNamesPanel, 0);
+                            Grid.SetColumn(sensorValuesPanel, 1);                            
+
+                            sensorNamesPanel.Children.Add(new TextBlock() { Text = sensorName });
+                            sensorValuesPanel.Children.Add(new TextBlock() { Text = sensorValue });
+
                         }
 
                     }
                 }
-            }
-            */
-
-            //cpu fan control value
-            //computer.Hardware[0].SubHardware[0].Sensors[0].Value;
-            //cpu fan speed value
-            //computer.Hardware[0].SubHardware[0].Sensors[8].Value;
-
-
-            MonitorData.Add(
-                new KeyValuePair
-                (
-                    computer.Hardware[0].SubHardware[0].Sensors[0].Identifier,
-                    computer.Hardware[0].SubHardware[0].Sensors[0].Name,
-                    computer.Hardware[0].SubHardware[0].Sensors[0].Value.ToString()
-                ));
-
-            foreach (KeyValuePair kvp in MonitorData)
-            {
-                HardwareList.Items.Add($"{kvp.Key} : {kvp.Value}%");
             }
 
         computer.Close();
