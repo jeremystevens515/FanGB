@@ -9,8 +9,8 @@
     <DockPanel>
         <TabControl TabStripPlacement="Top">
 
-            <TabItem Header="Monitor">
-                <Grid Name="HardwareList"></Grid>
+            <TabItem Header="Monitor" Name="MonitorTab" Content="{Binding Hardware.Sensors}">
+         
             </TabItem>
             
             <TabItem Header="Fans">

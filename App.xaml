@@ -1,9 +1,10 @@
 ﻿<Application x:Class="FanGB.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:src="clr-namespace:LibreHardwareMonitor.Hardware;assembly=LibreHardwareMonitorLib"
              xmlns:local="clr-namespace:FanGB"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        
+        <!-- <src:Computer x:Key="ComputerData"/> -->
     </Application.Resources>
 </Application>
