@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using FanGB.ViewModels;
 using LibreHardwareMonitor;
 using LibreHardwareMonitor.Hardware;
 
@@ -17,24 +18,15 @@ namespace FanGB
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
+        }
 
-            Computer computer = new Computer()
+        private void WindowClosing(object sender, CancelEventArgs e)
+        {
+            if (DataContext is MainViewModel viewModel)
             {
-                IsCpuEnabled = true,
-                IsGpuEnabled = true,
-                IsMemoryEnabled = false,
-                IsMotherboardEnabled = true,
-                IsControllerEnabled = false,
-                IsNetworkEnabled = false,
-                IsStorageEnabled = false
-            };
-
-            computer.Open();
-            computer.Accept(new UpdateVisitor());
-
-            DataContext = computer;
-
-            computer.Close();
+                viewModel.Dispose();
+            }
         }
     }
 }

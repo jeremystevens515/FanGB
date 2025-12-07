@@ -5,12 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FanGB"
         mc:Ignorable="d"
-        Title="FanGB" Height="450" Width="800">
+        Title="FanGB" Height="450" Width="800"
+        Closing="WindowClosing">
     <DockPanel>
         <TabControl TabStripPlacement="Top">
 
-            <TabItem Header="Monitor" Name="MonitorTab" Content="{Binding Hardware.Sensors}">
-         
+            <TabItem Header="Monitor" Name="MonitorTab">
+                <ItemsControl ItemsSource="{Binding Hardware}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="x:Type vm:HardwareViewModel">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding HardwareType}"/>
+                                <ItemsControl ItemsSource="{Binding Sensors}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="x:Type vm:SensorViewModel">
+                                            <TextBlock Margin="5" Text="{Binding Value, Mode=OneWay, StringFormat=F2}"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </TabItem>
             
             <TabItem Header="Fans">
