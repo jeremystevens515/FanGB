@@ -7,26 +7,24 @@
         mc:Ignorable="d"
         Title="FanGB" Height="450" Width="800"
         Closing="WindowClosing">
+    <!-- Resources -->
     <Window.Resources>
-
+        <DataTemplate x:Key="SensorTemplate" DataType="x:Type vm:SensorViewModel">
+            <DockPanel>
+                <TextBlock Text="{Binding Name}"/>
+                <TextBlock Text="{Binding Value, Mode=OneWay, StringFormat=F2}"/>
+            </DockPanel>
+        </DataTemplate>
+        
         <DataTemplate x:Key="HardwareTemplate" DataType="x:Type vm:HardwareViewModel">
             <StackPanel>
                 <TextBlock Text="{Binding Name}"/>
                 <TextBlock Text="{Binding HardwareType}"/>
-                <ItemsControl ItemsSource="{Binding Sensors}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="x:Type vm:SensorViewModel">
-                            <DockPanel>
-                                <TextBlock Margin="5" Text="{Binding Name}"/>
-                                <TextBlock Margin="5" Text="{Binding Value, Mode=OneWay, StringFormat=F2}"/>
-                            </DockPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <ItemsControl ItemsSource="{Binding Sensors}" ItemTemplate="{StaticResource SensorTemplate}"/>
             </StackPanel>
         </DataTemplate>
-
     </Window.Resources>
+    
     <!-- Layout -->
     <DockPanel>
         <TabControl TabStripPlacement="Top">
