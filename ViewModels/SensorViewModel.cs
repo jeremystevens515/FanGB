@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using LibreHardwareMonitor.Hardware;
+using RAMSPDToolkit.Logging;
 
 namespace FanGB.ViewModels
 {
@@ -8,7 +9,9 @@ namespace FanGB.ViewModels
     {
         //fields
         private readonly ISensor _sensor;
+        private readonly string _name;
         private float? _value;
+        
 
         //INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -18,6 +21,7 @@ namespace FanGB.ViewModels
         }
 
         //properties
+        public string Name { get => _name; }
         public float? Value         {
             get { return _value; }
             private set
@@ -34,6 +38,7 @@ namespace FanGB.ViewModels
         public SensorViewModel(ISensor sensor)
         {
             _sensor = sensor;
+            _name = sensor.Name;
             _value = sensor.Value;
         }
 
