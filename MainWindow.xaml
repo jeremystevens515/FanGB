@@ -11,15 +11,17 @@
     <Window.Resources>
         <DataTemplate x:Key="SensorTemplate" DataType="x:Type vm:SensorViewModel">
             <DockPanel>
-                <TextBlock Text="{Binding Name}"/>
+                <TextBlock Margin="0,0,5,0" Text="{Binding Name}"/>
                 <TextBlock Text="{Binding Value, Mode=OneWay, StringFormat=F2}"/>
             </DockPanel>
         </DataTemplate>
         
         <DataTemplate x:Key="HardwareTemplate" DataType="x:Type vm:HardwareViewModel">
             <StackPanel>
-                <TextBlock Text="{Binding Name}"/>
-                <TextBlock Text="{Binding HardwareType}"/>
+                <DockPanel>
+                    <TextBlock Margin="0,0,5,0" FontWeight="Bold" Text="{Binding HardwareType}"/>
+                    <TextBlock FontWeight="Bold" Text="{Binding Name}"/>
+                </DockPanel>
                 <ItemsControl ItemsSource="{Binding Sensors}" ItemTemplate="{StaticResource SensorTemplate}"/>
             </StackPanel>
         </DataTemplate>
@@ -30,7 +32,7 @@
         <TabControl TabStripPlacement="Top">
 
             <TabItem Header="Monitor" Name="MonitorTab">
-                <ItemsControl ItemsSource="{Binding Hardware}" ItemTemplate="{StaticResource HardwareTemplate}"/>
+                <ItemsControl ItemsSource="{Binding Hardware}" ItemTemplate="{StaticResource HardwareTemplate}" ScrollViewer.CanContentScroll="True"/>
             </TabItem>
             
             <TabItem Header="Fans">

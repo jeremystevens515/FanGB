@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Threading;
 using LibreHardwareMonitor.Hardware;
+using FanGB.Models;
 
 namespace FanGB.ViewModels
 {
@@ -40,17 +41,17 @@ namespace FanGB.ViewModels
         }
 
         //constructor
-        public MainViewModel()
+        public MainViewModel(ComputerOptions options)
         {
             Computer = new Computer()
             {
-                IsCpuEnabled = false,
-                IsGpuEnabled = false,
-                IsMemoryEnabled = false,
-                IsMotherboardEnabled = true,
-                IsControllerEnabled = false,
-                IsNetworkEnabled = false,
-                IsStorageEnabled = false
+                IsCpuEnabled = options.CPU,
+                IsGpuEnabled = options.GPU,
+                IsMemoryEnabled = options.Memory,
+                IsMotherboardEnabled = options.Mobo,
+                IsControllerEnabled = options.Controller,
+                IsNetworkEnabled = options.Network,
+                IsStorageEnabled = options.Storage
             };
 
             Computer.Open();

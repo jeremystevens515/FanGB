@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Threading;
+using FanGB.Models;
 using FanGB.ViewModels;
-using LibreHardwareMonitor;
-using LibreHardwareMonitor.Hardware;
 
 namespace FanGB
 {
@@ -18,7 +14,7 @@ namespace FanGB
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+            DataContext = new MainViewModel(new ComputerOptions());
         }
 
         private void WindowClosing(object sender, CancelEventArgs e)
