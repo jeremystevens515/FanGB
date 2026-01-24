@@ -11,9 +11,9 @@ namespace FanGB.ViewModels
         private readonly IHardware _hardware;
 
         //properties
-        public string Name { get => _hardware.Name; }
+        public string HardwareName { get => _hardware.Name; }
         public HardwareType HardwareType { get => _hardware.HardwareType; }
-        public ObservableCollection<SensorViewModel> Sensors { get; } = [];
+        public ObservableCollection<SensorViewModel> HardwareSensors { get; } = [];
 
         //INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -22,26 +22,26 @@ namespace FanGB.ViewModels
         public HardwareViewModel(IHardware hardware)
         {
             _hardware = hardware;
-            //Add sensors from this hardware to ObservableCollection
-            foreach (ISensor sensor in _hardware.Sensors)
-            {
-                Sensors.Add(new SensorViewModel(sensor));
-            }
-
-            //Add sensors from subhardware to ObservableCollection
-            foreach (IHardware subHardware in _hardware.SubHardware)
-            {
-                foreach (ISensor sensor in subHardware.Sensors)
-                {
-                    Sensors.Add(new SensorViewModel(sensor));
-                }
-            }
+            AddSensorsRecursively(_hardware);
         }
 
         //methods
+        private void AddSensorsRecursively(IHardware hardware)
+        {
+            foreach (ISensor sensor in hardware.Sensors)
+            {
+                HardwareSensors.Add(new SensorViewModel(sensor));
+            }
+
+            foreach (IHardware subHardware in hardware.SubHardware)
+            {
+                AddSensorsRecursively(subHardware);
+            }
+        }
+        
         public void Refresh()         
         {
-            foreach (SensorViewModel sensor in Sensors)
+            foreach (SensorViewModel sensor in HardwareSensors)
             {
                 sensor.Refresh();
             }

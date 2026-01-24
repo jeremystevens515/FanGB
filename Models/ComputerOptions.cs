@@ -21,16 +21,16 @@ namespace FanGB.Models
         public bool CPU { get => _isCpuEnabled; set => _isCpuEnabled = value; }
         public bool GPU { get => _isGpuEnabled; set => _isGpuEnabled = value; }
         public bool Memory { get => _isMemoryEnabled; set => _isMemoryEnabled = value; }
-        public bool Mobo { get => _isMotherboardEnabled; set => _isMotherboardEnabled = value; }
+        public bool Motherboard { get => _isMotherboardEnabled; set => _isMotherboardEnabled = value; }
         public bool Controller { get => _isControllerEnabled; set => _isControllerEnabled = value; }
         public bool Network { get => _isNetworkEnabled; set => _isNetworkEnabled = value; }
         public bool Storage { get => _isStorageEnabled; set => _isStorageEnabled = value; }
 
-        //default constructor
+        //default constructor with motherboard enabled
         public ComputerOptions()
         {
-            _isCpuEnabled = true;
-            _isGpuEnabled = true;
+            _isCpuEnabled = false;
+            _isGpuEnabled = false;
             _isMemoryEnabled = false;
             _isMotherboardEnabled = true;
             _isControllerEnabled = false;

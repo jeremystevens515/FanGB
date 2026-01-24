@@ -5,29 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FanGB"
         mc:Ignorable="d"
-        Title="FanGB" Height="450" Width="800"
+        Title="FanGB" Height="auto" Width="auto"
         Closing="WindowClosing">
     <!-- Resources -->
     <Window.Resources>
         <DataTemplate x:Key="SensorTemplate" DataType="x:Type vm:SensorViewModel">
-            <WrapPanel>
-                <TextBlock Margin="0,0,5,0" Text="{Binding Name}"/>
-                <TextBlock Text="{Binding Value, Mode=OneWay, StringFormat=F2}"/>
-            </WrapPanel>
+            <Border BorderBrush="Black" BorderThickness="1" Padding="3">
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} ({1}) : {2}">
+                            <Binding Path="SensorName"/>
+                            <Binding Path="SensorID"/>
+                            <Binding Path="SensorValue" Mode="OneWay"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Border>
         </DataTemplate>
         
         <DataTemplate x:Key="HardwareTemplate" DataType="x:Type vm:HardwareViewModel">
-            <StackPanel>
-                <WrapPanel>
-                    <TextBlock Margin="0,0,5,0" FontWeight="Bold" Text="{Binding HardwareType}"/>
-                    <TextBlock FontWeight="Bold" Text="{Binding Name}"/>
-                </WrapPanel>
-                <ItemsControl ItemsSource="{Binding Sensors}" ItemTemplate="{StaticResource SensorTemplate}"/>
+            <StackPanel Margin="0,0,50,0">
+                <TextBlock FontWeight="Bold" Text="{Binding HardwareType}"/>
+                <TextBlock FontWeight="Bold" Text="{Binding HardwareName}"/>
+                <ItemsControl ItemsSource="{Binding HardwareSensors}" ItemTemplate="{StaticResource SensorTemplate}"/>
             </StackPanel>
         </DataTemplate>
         
         <ItemsPanelTemplate x:Key="HorizontalItemsPanel">
-            <StackPanel Orientation="Horizontal" />
+            <StackPanel Orientation="Horizontal" Margin="10"/>
         </ItemsPanelTemplate>
     </Window.Resources>
     

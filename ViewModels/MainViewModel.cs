@@ -48,7 +48,7 @@ namespace FanGB.ViewModels
                 IsCpuEnabled = options.CPU,
                 IsGpuEnabled = options.GPU,
                 IsMemoryEnabled = options.Memory,
-                IsMotherboardEnabled = options.Mobo,
+                IsMotherboardEnabled = options.Motherboard,
                 IsControllerEnabled = options.Controller,
                 IsNetworkEnabled = options.Network,
                 IsStorageEnabled = options.Storage

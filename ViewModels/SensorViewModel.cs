@@ -9,10 +9,9 @@ namespace FanGB.ViewModels
     {
         //fields
         private readonly ISensor _sensor;
-        private readonly string _name;
         private float? _value;
         
-
+        
         //INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string propertyName)
@@ -21,15 +20,17 @@ namespace FanGB.ViewModels
         }
 
         //properties
-        public string Name { get => _name; }
-        public float? Value         {
+        public string SensorName { get => _sensor.Name; }
+        public Identifier SensorID { get => _sensor.Identifier; }
+        public string SensorType { get => _sensor.SensorType.ToString(); }
+        public float? SensorValue         {
             get { return _value; }
             private set
             {
                 if (_value != value)
                 {
                     _value = value;
-                    OnPropertyChanged(nameof(Value));
+                    OnPropertyChanged(nameof(SensorValue));
                 }
             }
         }
@@ -38,14 +39,13 @@ namespace FanGB.ViewModels
         public SensorViewModel(ISensor sensor)
         {
             _sensor = sensor;
-            _name = sensor.Name;
             _value = sensor.Value;
         }
 
         //methods
         public void Refresh()
         {
-            Value = _sensor.Value;
+            SensorValue = _sensor.Value;
         }
     }
 }
