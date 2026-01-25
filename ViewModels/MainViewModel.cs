@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Windows.Threading;
 using LibreHardwareMonitor.Hardware;
 using FanGB.Models;
+using FanGB.Utilities;
+using System.Diagnostics;
 
 namespace FanGB.ViewModels
 {
@@ -55,17 +57,20 @@ namespace FanGB.ViewModels
             };
 
             Computer.Open();
+            Computer.Accept(new UpdateVisitor());
 
-            //Build view-model collection from current hardware
+            //Build collection from each hardware element in the computer identified as true in options
             foreach (IHardware hardware in Computer.Hardware)
             {
                 Hardware.Add(new HardwareViewModel(hardware));
+                Debug.WriteLine($"added hardware {hardware.Name}");
             }
 
             _updateTimer = new DispatcherTimer(DispatcherPriority.Background)
             {
                 Interval = TimeSpan.FromMilliseconds(1000)
             };
+
             _updateTimer.Tick += OnUpdateTimerTick;
             _updateTimer.Start();
         }

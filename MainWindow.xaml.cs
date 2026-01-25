@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using FanGB.Models;
 using FanGB.ViewModels;
@@ -14,7 +15,7 @@ namespace FanGB
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel(new ComputerOptions());
+            DataContext = new MainViewModel(new ComputerOptions());            
         }
 
         private void WindowClosing(object sender, CancelEventArgs e)
@@ -24,5 +25,6 @@ namespace FanGB
                 viewModel.Dispose();
             }
         }
+
     }
 }

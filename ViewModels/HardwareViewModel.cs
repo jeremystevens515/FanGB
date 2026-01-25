@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using LibreHardwareMonitor.Hardware;
 
 namespace FanGB.ViewModels
@@ -12,7 +13,7 @@ namespace FanGB.ViewModels
 
         //properties
         public string HardwareName { get => _hardware.Name; }
-        public HardwareType HardwareType { get => _hardware.HardwareType; }
+        public HardwareType HardwareType { get => _hardware.HardwareType; }        
         public ObservableCollection<SensorViewModel> HardwareSensors { get; } = [];
 
         //INotifyPropertyChanged implementation
@@ -22,21 +23,29 @@ namespace FanGB.ViewModels
         public HardwareViewModel(IHardware hardware)
         {
             _hardware = hardware;
-            AddSensorsRecursively(_hardware);
+            //build a single sensor collection from hardware and subhardware layers
+            AddSensors(_hardware);
         }
 
         //methods
-        private void AddSensorsRecursively(IHardware hardware)
+        private void AddSensors(IHardware hardware)
         {
+            //get sensors from hardware layer
             foreach (ISensor sensor in hardware.Sensors)
             {
                 HardwareSensors.Add(new SensorViewModel(sensor));
+                Debug.WriteLine("added sensor from hardware layer");
             }
 
-            foreach (IHardware subHardware in hardware.SubHardware)
+            //get sensors from subhardware layers
+            foreach (IHardware subhardware in hardware.SubHardware)
             {
-                AddSensorsRecursively(subHardware);
-            }
+                foreach (ISensor sensor in subhardware.Sensors)
+                {
+                    HardwareSensors.Add(new SensorViewModel(sensor));
+                    Debug.WriteLine("added sensor from subhardware layer");
+                }
+            }            
         }
         
         public void Refresh()         
